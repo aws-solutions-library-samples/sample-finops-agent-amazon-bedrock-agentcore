@@ -37,7 +37,7 @@ if (!adminEmail) {
 // Stack 1: Image Stack - Builds Docker images for Agent Runtimes
 const imageStack = new ImageStack(app, 'FinOpsImageStack', {
   env,
-  description: 'FinOps Agent - Docker Image Build (ECR + CodeBuild) (SO9696)',
+  description: '(SO9696) FinOps Agent - Docker Image Build (ECR + CodeBuild)',
 });
 
 // Stack 2: Auth Stack - Cognito + M2M + OAuth Provider (Custom Resource)
