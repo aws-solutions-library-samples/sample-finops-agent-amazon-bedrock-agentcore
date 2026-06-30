@@ -63,7 +63,7 @@ providing comprehensive FinOps coverage through a single conversational interfac
 
 ### Cost
 
-_You are responsible for the cost of the AWS services used while running this Guidance. As of April 2026, the cost for running this Guidance with the default settings in the US East (N. Virginia) Region is approximately $150–$250 per month, depending on usage volume._
+_You are responsible for the cost of the AWS services used while running this Guidance. As of June 2026, the cost for running this Guidance with the default settings in the US East (N. Virginia) Region is approximately $150–$250 per month, depending on usage volume._
 
 The following table provides a sample cost breakdown for deploying this Guidance with the default parameters in the US East (N. Virginia) Region for one month.
 
