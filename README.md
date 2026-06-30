@@ -28,8 +28,9 @@ The Guidance uses **Amazon Bedrock AgentCore Runtime** to host a custom agent bu
 
 ### Architecture diagram
 
-![Architecture diagram for Guidance for Building a FinOps Agent Using Amazon Bedrock AgentCore on AWS](assets/images/architecture-diagram.png)
+![Architecture diagram for Guidance for Building a FinOps Agent Using Amazon Bedrock AgentCore on AWS](assets/images/cost-analysis-and-optimization-with-amazon-bedrock-agentcore-on-aws.png)
 
+<!--
 The architecture contains five key sections:
 
 1. **Amazon Cognito** authenticates users and provides temporary AWS credentials through Identity Pools. A machine-to-machine (M2M) client enables OAuth 2.0 flows between the Gateway and MCP runtimes.
@@ -37,6 +38,28 @@ The architecture contains five key sections:
 3. Two **AgentCore Runtimes** host the transformed MCP servers (Billing and Pricing), each configured with JWT authorization using Amazon Cognito and specific **AWS Identity and Access Management (IAM)** permissions.
 4. **AgentCore Gateway** provides a unified tool discovery and invocation endpoint with AWS_IAM authorization. **AgentCore Identity** manages the OAuth 2.0 credential lifecycle for secure communication between the Gateway and MCP server runtimes.
 5. The main **AgentCore Runtime** hosts the Strands agent, which orchestrates model invocations and tool calls through the Gateway. **AgentCore Memory** maintains conversation history for up to 30 days.
+-->
+
+#### Architecture workflow
+1. Administrative users use AWS CDK to deploy the guidance with a single script, uploading application code to Amazon S3 bucket and triggering AWS CodeBuild to build container images stored in Amazon Elastic Container Registry (ECR) for the Amazon Bedrock AgentCore runtime.
+2. Users access the web application hosted on AWS Management Portal for vCenter, which serves the frontend interface.
+3. Users authenticate with Amazon Cognito. Amazon Cognito validates your credentials and returns temporary AWS credentials from the Identity Pool.
+4. The Frontend sends the user's question to the Amazon Bedrock AgentCore Runtime — a secure, serverless environment that hosts and runs the agent with session isolation — using the temporary AWS credentials to call InvokeAgentRuntime via IAM SigV4 authentication.
+5. The Strands agent — an open-source agent framework supported natively by AgentCore Runtime — sends the user's question with 24 tool definitions to Claude Sonnet 4.5 on Amazon Bedrock, a fully managed service providing secure access to foundation models. The model selects the appropriate cost analysis tool.
+6. Amazon Bedrock AgentCore Memory — a fully managed service for session and long-term memory — maintains conversation context across interactions, enabling the agent to understand follow-up questions and provide coherent multi-turn cost analysis without users repeating context.
+7. The agent routes the tool call to AgentCore Gateway using IAM SigV4 authentication via InvokeGateway.
+8. AgentCore Identity — a secure identity and credential management service purpose-built for AI agents — retrieves an OAuth 2.0 access token from the registered Amazon Cognito M2M credential provider (using the client credentials grant) and attaches it to the outbound MCP request, enabling the agent to securely access the billing tools.
+9. The Gateway sends the Model Context Protocol (MCP) tool call request with the OAuth token to the Billing MCP Runtime.
+10. The Billing MCP Runtime queries the appropriate AWS cost services:
+    - AWS Cost Explorer for historical cost and usage data,
+    - AWS Budgets for budget status and alerts,
+    - AWS Compute Optimizer for rightsizing recommendations,
+    - AWS Cost & Pricing APIs for current service pricing
+providing comprehensive FinOps coverage through a single conversational interface.
+11. Cost data flows back through the communication chain. The agent sends it to Amazon Bedrock, where Claude generates a natural language summary of your costs.
+12. The formatted response displays the Cost breakdown in the user's chat interface.
+13. Amazon CloudWatch provides centralized monitoring, logging, and alerting across all guidance services for complete observability.
+
 
 ### Cost
 
