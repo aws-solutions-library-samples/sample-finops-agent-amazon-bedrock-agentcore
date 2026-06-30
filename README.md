@@ -135,8 +135,8 @@ For automated deployment, a one-click deploy script (`deploy.sh`) is available. 
 **Usage:**
 
 ```bash
-# Clone the repository
-git clone https://github.com/aws-samples/sample-finops-agent-amazon-bedrock-agentcore
+# Clone the guidance repository
+git clone https://github.com/aws-solutions-library-samples/sample-finops-agent-amazon-bedrock-agentcore
 cd sample-finops-agent-amazon-bedrock-agentcore
 
 # Make the script executable and run it
@@ -164,7 +164,7 @@ For a detailed understanding of each deployment step, see the [Manual Deployment
 ### Step 1: Clone the repository
 
 ```bash
-git clone https://github.com/aws-samples/sample-finops-agent-amazon-bedrock-agentcore
+git clone https://github.com/aws-solutions-library-samples/sample-finops-agent-amazon-bedrock-agentcore
 cd sample-finops-agent-amazon-bedrock-agentcore
 ```
 
@@ -359,7 +359,7 @@ This command should return no results. If any stacks remain, delete them manuall
 - AgentCore Runtimes are configured with public network access. Consider using private networking for production deployments.
 - The dataset used by this Guidance is your actual AWS billing data. No synthetic data is required.
 
-For any feedback, questions, or suggestions, use the [Issues](https://github.com/aws-samples/sample-finops-agent-amazon-bedrock-agentcore/issues) tab in this repository.
+For any feedback, questions, or suggestions, use the [Issues](https://github.com/aws-solutions-library-samples/sample-finops-agent-amazon-bedrock-agentcore/issues) tab in this repository.
 
 ## Notices
 
